@@ -44,9 +44,9 @@ Open a new terminal and go to the `client` folder. We'll install the Python depe
 
 ```bash
 cd client
-virtualenv .venv
+python -m venv .venv
 source .venv/bin/activate
-pip install -f requirements.txt
+pip install -r requirements.txt
 ```
 
 Run the client:
