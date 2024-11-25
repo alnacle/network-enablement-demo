@@ -9,12 +9,11 @@ requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 
 def login(phone):
+
     try:
-        response = requests.get("http://localhost:3000/login", params={"phone": phone})
-        data = json.loads(response.content)
-        return data["scopes"][
-            "dpv:FraudPreventionAndDetection#number-verification-verify-read"
-        ]["auth_url"]
+        data = { 'phone': phone }
+        response = requests.post("http://localhost:3000/login", json=data)
+        return json.loads(response.content)['url']
     except Exception as exception:
         print(f"Error: {exception}")
 
@@ -22,8 +21,7 @@ def login(phone):
 def auth(url):
     try:
         response = requests.get(url, verify=False)
-        data = json.loads(response.content)
-        return data["devicePhoneNumberVerified"]
+        return json.loads(response.content)["devicePhoneNumberVerified"]
     except Exception as exception:
         print(f"Error: {exception}")
 
